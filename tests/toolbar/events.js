@@ -275,6 +275,51 @@
             click(button);
         });
 
+        it("click on toggleButton in a SplitButton triggers toggle event", function(done) {
+            container.kendoToolBar({
+                items: [
+                    {
+                        type: "splitButton", id: "splitButton", text: "Split Button", menuButtons: [
+                            { id: "option1", text: "Option 1", togglable: true },
+                            { id: "option2", text: "Option 2", togglable: true },
+                            { id: "option3", text: "Option 3", togglable: true }
+                        ]
+                    }
+                ],
+                toggle: function() {
+                    assert.isOk(true, "Toggle event is clicked");
+                    done();
+                }
+            });
+
+            var button = container.find("#splitButton");
+            click(button);
+            click($("#option3"));
+        });
+
+        it("click on toggleButton in a SplitButton triggers toggle event (button level)", function(done) {
+            container.kendoToolBar({
+                items: [
+                    {
+                        type: "splitButton", id: "splitButton", text: "Split Button", menuButtons: [
+                            { id: "option1", text: "Option 1", togglable: true },
+                            { id: "option2", text: "Option 2", togglable: true },
+                            { id: "option3", text: "Option 3", togglable: true,
+                                toggle: function() {
+                                    assert.isOk(true, "Toggle event is clicked");
+                                    done();
+                                }
+                            }
+                        ]
+                    }
+                ]
+            });
+
+            var button = container.find("#splitButton");
+            click(button);
+            click($("#option3"));
+        });
+
         it("selecting toggle button that belongs to a group will deselect other buttons from the same group", function() {
             container.kendoToolBar({
                 items: [
